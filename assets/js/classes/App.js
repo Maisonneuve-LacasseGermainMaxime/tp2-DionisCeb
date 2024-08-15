@@ -1,17 +1,14 @@
 class App {
-    static #instance;
-
-    //Permet d'accéder à l'instance de la classe de n'importe où dans le code en utilisant App.instance
-    static get instance() {
-        return App.#instance;
-    }
+    #tasks;
 
     constructor() {
-        if (App.#instance) {
-            return App.#instance;
-        } else {
-            App.#instance = this;
-        }
+        this.extractAllTheTasks();
+    }
+
+    async extractAllTheTasks() {
+        const response = await fetch("http://localhost:8080/backend/tasks/readAll.php");
+        const tasks = await response.json();
+        console.log(tasks);
     }
 }
 
