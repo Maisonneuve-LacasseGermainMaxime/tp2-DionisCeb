@@ -22,24 +22,24 @@
         <header>
             <h1>Suivi d'exercices</h1>
             <nav>
-                <a href="#afficher">Afficher les exercices</a>
-                <a href="#ajouter">Ajouter un nouvel exercice</a>
+                <a href="#afficher" data-link>Afficher les exercices</a>
+                <a href="#ajouter" data-link>Ajouter un nouvel exercice</a>
             </nav>
         </header>
         <main data-app>
-            <section data-panneau="liste">
+            <section id="list-section" data-panneau="liste">
                 <h2>Liste des exercices</h2>
-                <template id="exercice">
+                <template id="exercice-template">
                     <div class="exercice">
-                        <h2 data-exercice-date>{{date}}</h2>
-                        <p data-exercice-type>{{type}}</p>
+                        <h2 id="data-exercise-date" data-exercice-date>{{date}}</h2>
+                        <p id="data-exercise-type" data-exercice-type>{{type}}</p>
                         <a href="#detail/{{id}}" class="btn">Détail</a>
                     </div>
                 </template>
                 <div data-liste-exercices></div>
             </section>
 
-            <section data-panneau="detail">
+            <section data-panneau="detail" class="hide">
                 <h2>Détail d'un exercice</h2>
                 <div data-exercice-infos>
                     <h3 data-type>{{ type }}</h3>
@@ -52,7 +52,7 @@
                 </div>
             </section>
 
-            <section data-panneau="formulaire">
+            <section data-panneau="formulaire" class="hide">
                 <h2>Ajouter un exercice</h2>
                 <form action="">
                     <div class="input-group">
