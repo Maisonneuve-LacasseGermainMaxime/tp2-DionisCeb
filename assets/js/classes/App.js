@@ -42,6 +42,10 @@ class App {
         }
     }
 
+    async extractOneExercises() {
+        
+    }
+
     
 
 }
