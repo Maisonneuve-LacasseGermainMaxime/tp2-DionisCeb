@@ -16,10 +16,10 @@ $pdoConnexion = new PDO("mysql:host=$host;dbname=$dbname;port=$port", $username,
 // Query to extract the data from DB
 $sql = "SELECT * FROM exercices";
 $query = $pdoConnexion->query($sql);
-$taches = $query->fetchAll(PDO::FETCH_ASSOC);
+$exercises = $query->fetchAll(PDO::FETCH_ASSOC);
 
 // Return the response
 header("Content-Type: application/json");
-echo json_encode($taches);
+echo json_encode($exercises);
 
 

@@ -9,10 +9,10 @@ class App {
         // List Section
         this.sectionList = document.querySelector("[data-panneau='liste']");
     
-        // Template to display the exercises
+        // Template to display the list of exercises
         this.template = document.querySelector('#exercice-template');
-    
-        // container to display the exercises
+   
+        // Container to display the list of exercises
         this.container = this.sectionList.querySelector('[data-liste-exercices]');
     }
 
@@ -22,32 +22,33 @@ class App {
             const exercises = await response.json();
             this.#exercises = exercises;
 
-            // Process each exercise
+            // Process each exercise using the Exercise class
             exercises.forEach((exercise) => {
-                // Clone the template content
-                const clone = document.importNode(this.template.content, true);
-
-                // Fill in the details
-                const listExerciseDate = clone.querySelector('[data-exercice-date]');
-                const listExerciseType = clone.querySelector('[data-exercice-type]');
-                
-                listExerciseDate.textContent = exercise.date;
-                listExerciseType.textContent = exercise.type;
-
-                // Append the clone to the container
-                this.container.appendChild(clone);
+                new Exercise(exercise, this.container, this);
             });
         } catch (error) {
             console.error('Error fetching exercises:', error);
         }
     }
 
-    async extractOneExercises() {
-        
+    async extractOneExercise(id) {
+        try {
+            const response = await fetch(`http://localhost:80/backend/exercises/readOne.php?id=${id}`);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const exercise = await response.json();
+            console.log(exercise);
+
+            // Example: Handle the exercise data (e.g., display details)
+            // this.displayExerciseDetails(exercise);
+
+        } catch (error) {
+            console.error('Error fetching the exercise:', error);
+        }
     }
-
-    
-
 }
 
 export default App;
