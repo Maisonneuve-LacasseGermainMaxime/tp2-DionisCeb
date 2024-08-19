@@ -22,7 +22,10 @@ class Exercise {
 
         this.gabarit = document.querySelector("template#exercice-template");
         this.sectionDetails = document.querySelector("[data-panneau='detail']");
+        this.exerciseDiv = this.sectionDetails.querySelector("[data-exercice-infos]");
         console.log(this.sectionDetails);
+        console.log(this.exerciseDiv);
+        
         
         this.injecterHTML();
     }
@@ -30,10 +33,21 @@ class Exercise {
     injecterHTML() {
         let clone = this.gabarit.content.cloneNode(true);
 
-        // details
+        // Fill in the details
         const listExerciseDate = clone.querySelector('[data-exercice-date]');
+        
         const listExerciseType = clone.querySelector('[data-exercice-type]');
         const detailLink = clone.querySelector('a.btn');
+
+        //deletebtn
+        const deleteButtons = document.querySelectorAll('button.danger');
+        deleteButtons.forEach(delButton => {
+            delButton.addEventListener('click', (event) => {
+                // Log the specific button that was clicked
+                console.log(event.currentTarget);
+            });
+        });
+        
         
         listExerciseDate.textContent = this.date;
         listExerciseType.textContent = this.type;
@@ -45,6 +59,13 @@ class Exercise {
         detailLink.addEventListener('click', (event) => {
             event.preventDefault(); // Prevent the default anchor behavior
             this.handleClick(); // Handle the click event
+        });
+
+        // Add event listener to the delete button
+        //delete only one specific exercise:
+        this.exerciseDiv.id = this.id;
+        this.exerciseDiv.querySelector('button.danger').addEventListener('click', () => {
+            this.app.deleteOneExercise(this.id); // Call the deletion method in the App class
         });
 
         this.conteneur.append(clone);

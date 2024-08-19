@@ -31,6 +31,8 @@ class App {
         }
     }
 
+    //Extract one exercise
+
     async extractOneExercise(id) {
         try {
             const response = await fetch(`http://localhost:80/backend/exercises/readOne.php?id=${id}`);
@@ -49,6 +51,23 @@ class App {
             console.error('Error fetching the exercise:', error);
         }
     }
+
+    //Delete one exercise
+
+    async deleteOneExercise(id) {
+        try {
+            const response = await fetch(`http://localhost:80/backend/exercises/deleteOne.php?id=${id}`);
+            const exercise = await response.json();
+
+            // After deletion, refresh the exercise list
+            /* this.extractAllTheExercises(); */
+
+            console.log(`L'exercice avec l'id "->${exercise.id}<-" a été supprimé`);
+        } catch (error) {
+            console.error('Error deleting exercise:', error);
+        }
+    }
+
 }
 
 export default App;
