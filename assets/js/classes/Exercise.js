@@ -11,86 +11,74 @@ class Exercise {
         this.date = date;
         this.difficulte = difficulte;
 
-        //spans to update
-        this.typeSpan = document.querySelector("[data-type]");
-        this.timeSpan = document.querySelector("[data-duree]");
-        this.dateSpan = document.querySelector("[data-date]");
-        this.descriptionSpan = document.querySelector("[data-description]");
-        this.timeSpan = document.querySelector("[data-duree]");
-        this.difficultySpan = document.querySelector("[data-difficulte]");
-        
+        // Template and section for details
+        this.template = document.querySelector('#exercice-template');
+        this.sectionDetails = this.app.sectionDetails;
 
-        this.gabarit = document.querySelector("template#exercice-template");
-        this.sectionDetails = document.querySelector("[data-panneau='detail']");
-        this.exerciseDiv = this.sectionDetails.querySelector("[data-exercice-infos]");
-        console.log(this.sectionDetails);
-        console.log(this.exerciseDiv);
-        
-        
+        //Delete btn
+        this.deleteButton = this.sectionDetails.querySelector('button.danger');
+
         this.injecterHTML();
     }
 
     injecterHTML() {
-        let clone = this.gabarit.content.cloneNode(true);
-
-        // Fill in the details
-        const listExerciseDate = clone.querySelector('[data-exercice-date]');
-        
-        const listExerciseType = clone.querySelector('[data-exercice-type]');
-        const detailLink = clone.querySelector('a.btn');
-
-        //deletebtn
-        const deleteButtons = document.querySelectorAll('button.danger');
-        deleteButtons.forEach(delButton => {
-            delButton.addEventListener('click', (event) => {
-                // Log the specific button that was clicked
-                console.log(event.currentTarget);
-            });
-        });
-        
-        
-        listExerciseDate.textContent = this.date;
-        listExerciseType.textContent = this.type;
+        // Clone the exercise template and update the details
+        const exerciseElement = this.template.content.cloneNode(true);
+        exerciseElement.querySelector('[data-exercice-date]').textContent = this.date;
+        exerciseElement.querySelector('[data-exercice-type]').textContent = this.type;
 
         // Set up the href with the exercise ID
+        const detailLink = exerciseElement.querySelector('a.btn');
         detailLink.href = `#detail/${this.id}`;
 
-        // Add click event listener to the anchor
+        // Add click event listener to the detail link
         detailLink.addEventListener('click', (event) => {
             event.preventDefault(); // Prevent the default anchor behavior
             this.handleClick(); // Handle the click event
         });
 
-        // Add event listener to the delete button
-        //delete only one specific exercise:
-        this.exerciseDiv.id = this.id;
-        this.exerciseDiv.querySelector('button.danger').addEventListener('click', () => {
-            this.app.deleteOneExercise(this.id); // Call the deletion method in the App class
-        });
-
-        this.conteneur.append(clone);
-        this.elementHTML = this.conteneur.lastElementChild;
-        this.elementHTML.id = this.id;
+        // Append the exercise to the container
+        this.conteneur.appendChild(exerciseElement);
     }
 
-    // Logic to handle the click event and extract the ID
     handleClick() {
+        // Display the details section and update with exercise info
         this.sectionDetails.classList.remove('hide');
-        // extract the values
-        let idDetail = this.id;
-        let timeDetail = this.duree;
-        let typeDetail = this.type;
-        let descriptionDetail = this.description;
-        let dateDetail = this.date;
-        let difficultyDetail = this.difficulte;
-        //update the spans the details of specific exercise
-        this.timeSpan.innerHTML = timeDetail;
-        this.typeSpan.innerHTML = typeDetail;
-        this.descriptionSpan.innerHTML = descriptionDetail;
-        this.dateSpan.innerHTML = dateDetail;
-        this.difficultySpan.innerHTML = difficultyDetail;
-        
+        console.log(`Id of the exercise = ${this.id}`);
+    
+        // Store the ID in a variable
+        const exerciseId = this.id;
+    
+        // Set the ID of the delete button to the stored exercise ID
+        if (this.deleteButton) {
+            this.deleteButton.id = `${exerciseId}`;
+            console.log(`Id of the button: ${this.deleteButton.id}`);
+        } else {
+            console.error('Delete button is not defined');
+        }
+    
+        // event listener for the delete button
+        if (this.deleteButton) {
+            this.deleteButton.addEventListener('click', () => {
+                this.deleteOneExercise(exerciseId);
+            });
+        }
+    
+        // details section with the current exercise info
+        const detailsSection = this.sectionDetails;
+        detailsSection.querySelector('[data-type]').textContent = this.type || 'N/A';
+        detailsSection.querySelector('[data-duree]').textContent = this.duree || 'N/A';
+        detailsSection.querySelector('[data-date]').textContent = this.date || 'N/A';
+        detailsSection.querySelector('[data-description]').textContent = this.description || 'N/A';
+        detailsSection.querySelector('[data-difficulte]').textContent = this.difficulte || 'N/A';
     }
+    
+    deleteOneExercise(id) {
+        //logic to delete an exercise by its ID
+        console.log(`Deleting exercise with ID: ${id}`);
+        this.app.deleteOneExercise(id);
+    }
+    
 }
 
 export default Exercise;

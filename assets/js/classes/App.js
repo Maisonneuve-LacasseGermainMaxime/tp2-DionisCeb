@@ -14,6 +14,9 @@ class App {
    
         // Container to display the list of exercises
         this.container = this.sectionList.querySelector('[data-liste-exercices]');
+
+        // Details Section
+        this.sectionDetails = document.querySelector("[data-panneau='detail']");
     }
 
     async extractAllTheExercises() {
@@ -21,6 +24,9 @@ class App {
             const response = await fetch("http://localhost:80/backend/exercises/readAll.php");
             const exercises = await response.json();
             this.#exercises = exercises;
+
+            // Clear the container before displaying new exercises
+            this.container.innerHTML = '';
 
             // Process each exercise using the Exercise class
             exercises.forEach((exercise) => {
@@ -31,43 +37,18 @@ class App {
         }
     }
 
-    //Extract one exercise
-
-    async extractOneExercise(id) {
-        try {
-            const response = await fetch(`http://localhost:80/backend/exercises/readOne.php?id=${id}`);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const exercise = await response.json();
-            console.log(exercise);
-
-            // Example: Handle the exercise data (e.g., display details)
-            // this.displayExerciseDetails(exercise);
-
-        } catch (error) {
-            console.error('Error fetching the exercise:', error);
-        }
-    }
-
-    //Delete one exercise
-
     async deleteOneExercise(id) {
         try {
             const response = await fetch(`http://localhost:80/backend/exercises/deleteOne.php?id=${id}`);
-            const exercise = await response.json();
+            const result = await response.json();
+            console.log(`L'exercice avec l'id "->${result.id}<-" a été supprimé`);
 
             // After deletion, refresh the exercise list
-            /* this.extractAllTheExercises(); */
-
-            console.log(`L'exercice avec l'id "->${exercise.id}<-" a été supprimé`);
+            this.extractAllTheExercises();
         } catch (error) {
             console.error('Error deleting exercise:', error);
         }
     }
-
 }
 
 export default App;
