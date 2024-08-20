@@ -1,4 +1,5 @@
 import Exercise from "./Exercise.js";
+import FormExercise from "./Form.js";
 
 class App {
     #exercises;
@@ -17,6 +18,12 @@ class App {
 
         // Details Section
         this.sectionDetails = document.querySelector("[data-panneau='detail']");
+
+        // Initialize the FormExercise class
+        this.formExercise = new FormExercise(this);
+
+
+
     }
 
     async extractAllTheExercises() {

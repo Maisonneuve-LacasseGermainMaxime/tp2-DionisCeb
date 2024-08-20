@@ -52,7 +52,7 @@
                 </div>
             </section>
 
-            <section data-panneau="formulaire" class="hide">
+            <section data-panneau="formulaire">
                 <h2>Ajouter un exercice</h2>
                 <form action="">
                     <div class="input-group">
@@ -75,7 +75,12 @@
                         <textarea name="description" id="description" required></textarea>
                     </div>
 
-                    <input class="disabled" type="submit" name="submit" id="submit" value="envoyer" required />
+                    <div class="input-group">
+                        <label for="difficulte">Difficulté</label>
+                        <textarea name="difficulte" id="difficulte" required></textarea>
+                    </div>
+
+                    <input class="disabledd" type="submit" name="submit" id="submit" value="envoyer" required />
                 </form>
             </section>
         </main>
