@@ -14,8 +14,11 @@ class FormExercise {
                 duree: this.formulaireHTML.duree.value,
                 description: this.formulaireHTML.description.value,
                 date: this.formulaireHTML.date.value,
-                difficulte: this.formulaireHTML.difficulte,
+                difficulte: this.formulaireHTML.difficulte.value,
             };
+
+            console.log(body);
+            
 
             const config = {
                 method: "POST",
