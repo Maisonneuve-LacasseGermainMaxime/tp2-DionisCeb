@@ -22,8 +22,8 @@
         <header>
             <h1>Suivi d'exercices</h1>
             <nav>
-                <a href="#afficher" data-link>Afficher les exercices</a>
-                <a href="#ajouter" data-link>Ajouter un nouvel exercice</a>
+                <a href="#afficher" data-link id="displayList">Afficher les exercices</a>
+                <a href="#ajouter" data-link id="displayForm">Ajouter un nouvel exercice</a>
             </nav>
         </header>
         <main data-app>
@@ -33,13 +33,13 @@
                     <div class="exercice">
                         <h2 id="data-exercise-date" data-exercice-date>{{date}}</h2>
                         <p id="data-exercise-type" data-exercice-type>{{type}}</p>
-                        <a href="#detail/{{id}}" class="btn">Détail</a>
+                        <a href="#detail/{{id}}" class="btn" id="displayDetail">Détail</a>
                     </div>
                 </template>
                 <div data-liste-exercices></div>
             </section>
 
-            <section data-panneau="detail" class="hide">
+            <section data-panneau="detail">
                 <h2>Détail d'un exercice</h2>
                 <div data-exercice-infos>
                     <h3 data-type>{{ type }}</h3>

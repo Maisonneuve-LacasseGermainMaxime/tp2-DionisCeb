@@ -1,14 +1,21 @@
 import Exercise from "./Exercise.js";
-import FormExercise from "./Form.js";
+import FormExercise from "./FormExercise.js";
 
 class App {
     #exercises;
 
     constructor() {
-        this.extractAllTheExercises();
+       
 
         // List Section
         this.sectionList = document.querySelector("[data-panneau='liste']");
+         // Details Section
+         this.sectionDetails = document.querySelector("[data-panneau='detail']");
+         this.sectionForm = document.querySelector("[data-panneau='formulaire']");
+
+         this.extractAllTheExercises();
+         this.hideTheSections();
+         /* this.displayFormSection(); */
     
         // Template to display the list of exercises
         this.template = document.querySelector('#exercice-template');
@@ -16,8 +23,20 @@ class App {
         // Container to display the list of exercises
         this.container = this.sectionList.querySelector('[data-liste-exercices]');
 
-        // Details Section
-        this.sectionDetails = document.querySelector("[data-panneau='detail']");
+        //Select the nav to handle the displaying the sections
+        this.nav = document.querySelector('nav');
+        this.btnListDisplay = this.nav.querySelector('#displayList');
+        this.btnFormDisplay = this.nav.querySelector('#displayForm');
+        
+
+        //add event listeners on click:
+        //display List section
+        this.btnListDisplay.addEventListener('click', this.displayListSection.bind(this));
+        //display Form section
+        this.btnFormDisplay.addEventListener('click', this.displayFormSection.bind(this));
+        
+
+       
 
         // Initialize the FormExercise class
         this.formExercise = new FormExercise(this);
@@ -55,6 +74,25 @@ class App {
         } catch (error) {
             console.error('Error deleting exercise:', error);
         }
+    }
+
+    hideTheSections() {
+        this.sectionList.classList.add('hide');
+        this.sectionDetails.classList.add('hide');
+        this.sectionForm.classList.add('hide');
+    }
+
+    //Display sections
+    displayListSection() {
+        this.sectionList.classList.remove('hide');
+    }
+    //Display sections
+    displayDetailSection() {
+        this.sectionDetails.classList.remove('hide');
+    }
+    //Display sections
+    displayFormSection() {
+        this.sectionForm.classList.remove('hide');
     }
 }
 
