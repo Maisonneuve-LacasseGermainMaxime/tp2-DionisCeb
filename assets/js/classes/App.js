@@ -1,5 +1,6 @@
 import Exercise from "./Exercise.js";
 import FormExercise from "./FormExercise.js";
+import Router from "./Router.js";
 
 class App {
     #exercises;
@@ -14,6 +15,7 @@ class App {
          this.sectionForm = document.querySelector("[data-panneau='formulaire']");
 
          this.extractAllTheExercises();
+         /* this.router = new Router(this); */
          this.hideTheSections();
          /* this.displayFormSection(); */
     
@@ -26,14 +28,20 @@ class App {
         //Select the nav to handle the displaying the sections
         this.nav = document.querySelector('nav');
         this.btnListDisplay = this.nav.querySelector('#displayList');
+        this.btnReturn = this.sectionDetails.querySelector('#return-btn');
         this.btnFormDisplay = this.nav.querySelector('#displayForm');
+        
+        
+        
         
 
         //add event listeners on click:
         //display List section
         this.btnListDisplay.addEventListener('click', this.displayListSection.bind(this));
+        this.btnReturn.addEventListener('click', this.displayListSection.bind(this));
         //display Form section
         this.btnFormDisplay.addEventListener('click', this.displayFormSection.bind(this));
+
         
 
        
@@ -84,14 +92,17 @@ class App {
 
     //Display sections
     displayListSection() {
+        this.hideTheSections();
         this.sectionList.classList.remove('hide');
     }
     //Display sections
     displayDetailSection() {
+        this.hideTheSections();
         this.sectionDetails.classList.remove('hide');
     }
     //Display sections
     displayFormSection() {
+        this.hideTheSections();
         this.sectionForm.classList.remove('hide');
     }
 }

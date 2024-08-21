@@ -47,14 +47,14 @@
                     <p>Date: <span data-date>{{ date }}</span></p>
                     <p>Description: <span data-description>{{ description }}</span></p>
                     <p>Difficulté: <span data-difficulte>{{ difficulte }}</span></p>
-                    <a href="/#afficher" style="margin-right: 10px">Retour à la liste</a>
+                    <a href="/#afficher" id="return-btn" style="margin-right: 10px">Retour à la liste</a>
                     <button class="btn danger">Supprimer l'exercice</button>
                 </div>
             </section>
 
             <section data-panneau="formulaire">
                 <h2>Ajouter un exercice</h2>
-                <form action="">
+                <form action="" id="#exerciseForm">
                     <div class="input-group">
                         <label for="type">Type</label>
                         <input type="text" name="type" id="type" required />

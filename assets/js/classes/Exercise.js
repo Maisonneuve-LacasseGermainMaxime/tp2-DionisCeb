@@ -43,7 +43,8 @@ class Exercise {
 
     handleClick() {
         // Display the details section and update with exercise info
-        this.sectionDetails.classList.remove('hide');
+        this.app.displayDetailSection();
+        /* this.sectionDetails.classList.remove('hide'); */
         console.log(`Id of the exercise = ${this.id}`);
     
         // Store the ID in a variable
