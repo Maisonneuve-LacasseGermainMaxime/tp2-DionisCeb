@@ -22,18 +22,18 @@
         <header>
             <h1>Suivi d'exercices</h1>
             <nav>
-                <a href="#afficher">Afficher les exercices</a>
-                <a href="#ajouter">Ajouter un nouvel exercice</a>
+                <a href="#afficher" data-link id="displayList">Afficher les exercices</a>
+                <a href="#ajouter" data-link id="displayForm">Ajouter un nouvel exercice</a>
             </nav>
         </header>
         <main data-app>
-            <section data-panneau="liste">
+            <section id="list-section" data-panneau="liste">
                 <h2>Liste des exercices</h2>
-                <template id="exercice">
+                <template id="exercice-template">
                     <div class="exercice">
-                        <h2 data-exercice-date>{{date}}</h2>
-                        <p data-exercice-type>{{type}}</p>
-                        <a href="#detail/{{id}}" class="btn">Détail</a>
+                        <h2 id="data-exercise-date" data-exercice-date>{{date}}</h2>
+                        <p id="data-exercise-type" data-exercice-type>{{type}}</p>
+                        <a href="#detail/{{id}}" class="btn" id="displayDetail">Détail</a>
                     </div>
                 </template>
                 <div data-liste-exercices></div>
@@ -47,14 +47,14 @@
                     <p>Date: <span data-date>{{ date }}</span></p>
                     <p>Description: <span data-description>{{ description }}</span></p>
                     <p>Difficulté: <span data-difficulte>{{ difficulte }}</span></p>
-                    <a href="/#afficher" style="margin-right: 10px">Retour à la liste</a>
+                    <a href="/#afficher" id="return-btn" style="margin-right: 10px">Retour à la liste</a>
                     <button class="btn danger">Supprimer l'exercice</button>
                 </div>
             </section>
 
             <section data-panneau="formulaire">
                 <h2>Ajouter un exercice</h2>
-                <form action="">
+                <form action="" id="#exerciseForm">
                     <div class="input-group">
                         <label for="type">Type</label>
                         <input type="text" name="type" id="type" required />
@@ -75,7 +75,12 @@
                         <textarea name="description" id="description" required></textarea>
                     </div>
 
-                    <input class="disabled" type="submit" name="submit" id="submit" value="envoyer" required />
+                    <div class="input-group">
+                        <label for="difficulte">Difficulté</label>
+                        <input type="number" name="difficulte" id="difficulte" required></input>
+                    </div>
+
+                    <input type="submit" name="submit" id="submit" value="envoyer" min="0" max="5" required />
                 </form>
             </section>
         </main>

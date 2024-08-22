@@ -16,6 +16,9 @@
     --font-xxxl: 3rem;
 }
 
+:root {
+    --main-bg-color: linear-gradient(45deg, #1E90FF, #4682B4, #5F9EA0, #87CEEB);
+}
 html,
 body {
     padding: var(--space-m);
@@ -23,6 +26,7 @@ body {
     color: var(--coul-blanc);
     font-weight: 500;
     line-height: 1.2;
+    background: var(--main-bg-color) !important;
 }
 
 h1,

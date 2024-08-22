@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 
 $host = "localhost";
 $port = "3306";
-$dbname = "to-do-list";
+$dbname = "fitness-app";
 $username = "root";
 $password = "";
 
@@ -14,12 +14,12 @@ $password = "";
 $pdoConnexion = new PDO("mysql:host=$host;dbname=$dbname;port=$port", $username, $password);
 
 // Query to extract the data from DB
-$sql = "SELECT * FROM taches";
+$sql = "SELECT * FROM exercices";
 $query = $pdoConnexion->query($sql);
-$taches = $query->fetchAll(PDO::FETCH_ASSOC);
+$exercises = $query->fetchAll(PDO::FETCH_ASSOC);
 
 // Return the response
 header("Content-Type: application/json");
-echo json_encode($taches);
+echo json_encode($exercises);
 
 

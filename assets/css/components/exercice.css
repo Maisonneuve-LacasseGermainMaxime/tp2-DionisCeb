@@ -1,10 +1,11 @@
 .exercice {
     display: flex;
     gap: var(--space-l);
-    background-color: color-mix(in oklab, var(--coul-accent-pale) 20%, white 80%);
+    background-color: #d5d5d5;
     padding: var(--space-m) var(--space-l);
     border-radius: 15px;
     align-items: baseline;
+    transition: all 1s;
 
     & > * {
         font-family: var(--font-accent);
@@ -29,12 +30,25 @@
 }
 
 [data-exercice-infos] h3 {
-    color: var(--coul-principale-moyen-bleu);
+    color: var(--coul-accent-fonce);
     font-weight: 700;
     font-size: var(--font-xl);
 }
 
 [data-exercice-infos] p {
-    color: var(--coul-principale-moyen-bleu);
+    color: var(--coul-noir);
     font-size: var(--font-l);
+}
+
+.exercice:hover {
+    scale: 0.98;
+    opacity: 0.90;
+}
+
+.exercice #displayDetail:hover {
+    scale: 0.98;
+}
+
+.exercice #displayDetail:active {
+    scale: 0.70;
 }
