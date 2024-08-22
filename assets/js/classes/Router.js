@@ -2,12 +2,13 @@ class Router {
     constructor(app) {
         this.app = app;
         this.routes = {
-            liste: app.displayListSection.bind(this.app),
+            afficher: app.extractAllTheExercises.bind(this.app),
             ajouter: app.displayFormSection.bind(this.app),
         };
 
         window.addEventListener("popstate", this.miseAJourURL.bind(this));
         document.addEventListener("click", this.onClicLien.bind(this));
+
 
         this.miseAJourURL();
     }
@@ -28,7 +29,7 @@ class Router {
         } else if (fonctionRoute) {
             fonctionRoute();
         } else {
-            this.routes["liste"]();
+            this.routes["afficher"]();
         }
     }
 

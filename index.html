@@ -11,13 +11,13 @@
 
     <body data-equipe>
         <!-- Template pour l'utilisation des modales, ne pas supprimer-->
-        <div id="toast-modale">
+        <template id="toast-modale">
             <div class="toast-modale">
                 <div class="toast-modale-content">
                     <p class="toast-message">{{message}}</p>
                 </div>
             </div>
-        </div>
+        </template>
 
         <header>
             <h1>Suivi d'exercices</h1>
@@ -77,10 +77,10 @@
 
                     <div class="input-group">
                         <label for="difficulte">Difficulté</label>
-                        <textarea name="difficulte" id="difficulte" required></textarea>
+                        <input type="number" name="difficulte" id="difficulte" required></input>
                     </div>
 
-                    <input class="disabledd" type="submit" name="submit" id="submit" value="envoyer" required />
+                    <input type="submit" name="submit" id="submit" value="envoyer" min="0" max="5" required />
                 </form>
             </section>
         </main>

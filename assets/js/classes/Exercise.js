@@ -1,9 +1,13 @@
 class Exercise {
     constructor(exerciseInfos, conteneur, app) {
+        // Extraction des informations de l'exercice
         const { id, duree, type, description, date, difficulte } = exerciseInfos;
+        // Conteneur pour afficher l'exercice
         this.conteneur = conteneur;
+        // Instance de l'application
         this.app = app;
 
+        // Propriétés de l'exercice
         this.id = id;
         this.duree = duree;
         this.type = type;
@@ -11,61 +15,64 @@ class Exercise {
         this.date = date;
         this.difficulte = difficulte;
 
-        // Template and section for details
+        // Sélection du template HTML pour les exercices et la section des détails
         this.template = document.querySelector('#exercice-template');
         this.sectionDetails = this.app.sectionDetails;
 
-        //Delete btn
+        // Sélection du bouton de suppression
         this.deleteButton = this.sectionDetails.querySelector('button.danger');
 
+        // La méthode pour injecter le HTML de l'exercice
         this.injecterHTML();
     }
 
+    // Méthode pour cloner le template
     injecterHTML() {
-        // Clone the exercise template and update the details
+        // template pour créer un nouvel élément d'exercice
         const exerciseElement = this.template.content.cloneNode(true);
+        // Mise à jour du contenu de l'élément
         exerciseElement.querySelector('[data-exercice-date]').textContent = this.date;
         exerciseElement.querySelector('[data-exercice-type]').textContent = this.type;
 
-        // Set up the href with the exercise ID
+        // Configuration du lien avec l'ID de l'exercice
         const detailLink = exerciseElement.querySelector('a.btn');
         detailLink.href = `#detail/${this.id}`;
 
-        // Add click event listener to the detail link
+        // gérer le clic
         detailLink.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent the default anchor behavior
-            this.handleClick(); // Handle the click event
+            // Empêche le comportement par défaut du lien
+            event.preventDefault();
+            // Appelle la méthode pour gérer le clic
+            this.handleClick();
         });
 
-        // Append the exercise to the container
+       // Ajout de l'élément d'exercice au conteneur
         this.conteneur.appendChild(exerciseElement);
     }
 
+    // Méthode pour gérer le clic sur le lien de détails
     handleClick() {
-        // Display the details section and update with exercise info
+        // Affiche la section des détails et met à jour les informations de l'exercice
         this.app.displayDetailSection();
-        /* this.sectionDetails.classList.remove('hide'); */
-        console.log(`Id of the exercise = ${this.id}`);
     
-        // Store the ID in a variable
+         // Stocke l'ID de l'exercice dans la variable --> "exerciseId"
         const exerciseId = this.id;
     
-        // Set the ID of the delete button to the stored exercise ID
+        // Définit l'ID du bouton de suppression avec l'ID de l'exercice
         if (this.deleteButton) {
             this.deleteButton.id = `${exerciseId}`;
-            console.log(`Id of the button: ${this.deleteButton.id}`);
         } else {
-            console.error('Delete button is not defined');
+            console.error('Le bouton de suppression n\'est pas défini');
         }
     
-        // event listener for the delete button
+        // Ajoute un écouteur d'événements au bouton de suppression pour gérer le clic
         if (this.deleteButton) {
             this.deleteButton.addEventListener('click', () => {
                 this.deleteOneExercise(exerciseId);
             });
         }
     
-        // details section with the current exercise info
+        // Met à jour la section des détails avec les informations de l'exercice actuel
         const detailsSection = this.sectionDetails;
         detailsSection.querySelector('[data-type]').textContent = this.type || 'N/A';
         detailsSection.querySelector('[data-duree]').textContent = this.duree || 'N/A';
@@ -74,10 +81,16 @@ class Exercise {
         detailsSection.querySelector('[data-difficulte]').textContent = this.difficulte || 'N/A';
     }
     
-    deleteOneExercise(id) {
-        //logic to delete an exercise by its ID
-        console.log(`Deleting exercise with ID: ${id}`);
-        this.app.deleteOneExercise(id);
+    // Méthode pour supprimer un exercice en fonction de son ID
+    async deleteOneExercise(id) {
+        try {
+            console.log(`Deleting exercise with ID: ${id}`);
+            //appelle la méthode deleteOneExercise de l'application
+            await this.app.deleteOneExercise(id);
+            this.app.showSuccessToast("L'exercice a été supprimé avec succès");
+        } catch (error) {
+            this.app.showErrorToast("Échec de la suppression de l'exercice");
+        }
     }
     
 }
